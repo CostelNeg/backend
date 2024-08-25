@@ -1,6 +1,5 @@
 import express from "express";
 import User from "../models/User.js";
-
 const userRouter = express.Router();
 
 //metodo
@@ -63,8 +62,11 @@ userRouter.put("/:userId",async (req, res, next) => {
     res.status(400).send()
   }
 });
-userRouter.delete("//:userId", (req, res, next) => {
-  const dataToDelete = req.body;
+userRouter.delete("/:userId", async(req, res, next) => {
+ await User.deleteOne({
+    _id:req.params.userId
+ })
+ res.send(204)
 });
 
 export default userRouter;
